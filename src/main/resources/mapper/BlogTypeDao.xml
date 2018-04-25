@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.lxb.blog.dao.BlogTypeDao">
+
+    <resultMap type="BlogType" id="BlogTypeResult">
+        <result property="id" column="id"/>
+        <result property="typeName" column="typeName"/>
+        <result property="blogCount" column="blogCount"/>
+        <result property="orderNo" column="orderNo"/>
+    </resultMap>
+
+    <sql id="t_blogType">id, typeName, orderNo</sql>
+
+    <select id="countList" resultMap="BlogTypeResult">
+        SELECT tbt.id, tbt.typeName, COUNT(tb.id)
+        AS blogCount
+        FROM t_blog tb
+        RIGHT JOIN t_blogtype tbt
+        ON tb.typeId = tbt.id
+        GROUP BY tbt.typeName
+        ORDER BY tbt.orderNo
+    </select>
+
+    <select id="findById" parameterType="java.lang.Integer" resultMap="BlogTypeResult">
+        SELECT
+        <include refid="t_blogType"/>
+        FROM t_blogtype
+        WHERE id = #{id}
+    </select>
+
+    <select id="list" parameterType="java.util.Map" resultMap="BlogTypeResult">
+        SELECT
+        <include refid="t_blogType"/>
+        FROM t_blogtype
+        <if test="start != null and size != null">
+            limit #{start}, #{size}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="java.util.Map" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM t_blogtype
+    </select>
+
+    <insert id="add" parameterType="BlogType">
+        INSERT INTO t_blogtype
+        VALUES(null, #{typeName}, #{orderNo})
+    </insert>
+
+    <update id="update" parameterType="BlogType">
+        UPDATE t_blogtype
+        <set>
+            <if test="typeName != null and !&quot;&quot;.equals(typeName.trim())">
+                typeName = #{typeName},
+            </if>
+            <if test="orderNo != null ">
+                orderNo = #{orderNo},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM t_blogtype WHERE id = #{id}
+    </delete>
+
+</mapper>

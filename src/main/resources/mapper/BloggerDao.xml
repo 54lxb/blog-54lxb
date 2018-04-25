@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.lxb.blog.dao.BloggerDao">
+
+    <resultMap type="Blogger" id="BloggerResult">
+        <result property="id" column="id"/>
+        <result property="userName" column="userName"/>
+        <result property="password" column="password"/>
+        <result property="nickName" column="nickName"/>
+        <result property="sign" column="sign"/>
+        <result property="proFile" column="proFile"/>
+        <result property="imageName" column="imageName"/>
+    </resultMap>
+
+    <sql id="t_blogger">id, userName, password, nickName, sign, proFile, imageName</sql>
+
+    <select id="find" resultMap="BloggerResult">
+        SELECT
+        <include refid="t_blogger"/>
+        FROM t_blogger
+        WHERE id = 1;
+    </select>
+
+    <select id="getByUserName" parameterType="java.lang.String" resultMap="BloggerResult">
+        SELECT
+        <include refid="t_blogger"/>
+        FROM t_blogger
+        WHERE userName = #{userName}
+    </select>
+
+    <update id="update" parameterType="Blogger">
+        UPDATE t_blogger
+        <set>
+            <if test="password != null and !&quot;&quot;.equals(password.trim())">
+                password = #{password},
+            </if>
+            <if test="nickName != null and !&quot;&quot;.equals(nickName.trim())">
+                nickName = #{nickName},
+            </if>
+            <if test="sign != null and !&quot;&quot;.equals(sign.trim())">
+                sign = #{sign},
+            </if>
+            <if test="proFile != null and !&quot;&quot;.equals(proFile.trim())">
+                proFile = #{proFile},
+            </if>
+            <if test="imageName != null and !&quot;&quot;.equals(imageName.trim())">
+                imageName = #{imageName},
+            </if>
+        </set>
+        WHERE id = 1
+    </update>
+
+</mapper>
