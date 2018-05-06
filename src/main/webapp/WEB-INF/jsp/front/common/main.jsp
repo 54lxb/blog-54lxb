@@ -19,9 +19,22 @@
     <link rel="stylesheet" href="${baseURL}/static/common/css/loading.css">
     <style type="text/css">
         body {
-            padding-top: 10px;
-            padding-bottom: 40px;
+            padding-top: 0.1em;
+            padding-bottom: 0.4em;
         }
+
+        .article-title a {
+            font-size: 1.5em;
+        }
+
+        .article-title a:hover, .article-title a:focus {
+            text-decoration: underline;
+        }
+
+        .article-title a:active, .article-title a:hover {
+            outline: 0;
+        }
+
     </style>
 </head>
 <body>

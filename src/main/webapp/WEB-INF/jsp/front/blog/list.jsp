@@ -10,23 +10,24 @@
     </div>
     <div class="datas">
         <ul>
-            <c:forEach var="blog" items="${blogList}">
-                <li style="margin-bottom: 30px">
+            <c:forEach var="blog" items="${blogList }">
+                <li style="margin-bottom: 0.3rem">
                     <span class="date">
                         <a href="${baseURL}/article/${blog.id}/detail">
                             <fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy年MM月dd日"/>
                         </a>
                     </span>
-                    <span class="title">
+                    <span class="title article-title">
                         <a href="${baseURL}/article/${blog.id}/detail">${blog.title }</a>
                     </span>
-                    <span class="summary"><strong>摘要: </strong>${blog.summary }...</span>
+                    <span class="summary"><strong>摘要: </strong>${blog.summary }......</span>
                     <span class="img">
 				  		<c:forEach var="image" items="${blog.imagesList }">
                             <a href="${baseURL}/article/${blog.id}/detail">${image }</a>&nbsp;&nbsp;
                         </c:forEach>
-				  	</span>
-                    <span class="info">发表于
+				  	</span><br>
+                    <span class="info">
+                        发表于
                         <fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>
                         阅读(${blog.clickHit}) 评论(${blog.replyHit})
                     </span>
