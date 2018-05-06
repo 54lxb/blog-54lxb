@@ -37,19 +37,26 @@ public class BaiDuPushTask {
      * 自动推送任务
      *
      * @throws IOException
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
-    @Scheduled(fixedDelay = 200000)
+    @Scheduled(fixedDelay = 2000000)
     public void postBlogUrl() throws Exception {
-        List<String> ids = blogService.getBlogIds();
-        String[] blogIds = ids.toString().split(",");
+        List<String> blogIds = blogService.getBlogIds();
         writerUrl(initConnect(), blogIds);
     }
 
     /**
-     * 初始化HttpURLConnection
+     * <p>
+     * description：初始化HttpURLConnection
+     * </p>
      *
-     * @return
+     * @return HttpURLConnection
      * @throws IOException
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     private HttpURLConnection initConnect() throws Exception {
         HttpURLConnection conn = (HttpURLConnection) new URL(blogConfig.getPostUrl()).openConnection();
@@ -64,40 +71,42 @@ public class BaiDuPushTask {
 
 
     /**
-     * 重构推送文章的write方法
+     * <p>
+     * description：重构推送文章的write方法
+     * </p>
      *
      * @param connection HttpURLConnection
-     * @param ids 文章ID数组
+     * @param ids        文章ID数组
      * @throws IOException
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
-    private void writerUrl(HttpURLConnection connection, String... ids) throws Exception {
+    private void writerUrl(HttpURLConnection connection, List<String> ids) throws Exception {
         StringBuilder sb = new StringBuilder();
         for (String id : ids) {
-            sb.append(blogConfig.getBaseUrl());
-            sb.append("/article/details/");
-            sb.append(id);
-            sb.append("\n");
+            sb.append(blogConfig.getBaseUrl()).append("/article/").append(id).append("/detail").append("\n");
         }
-        logger.info("》》》》》》》》》》》》》》》》》》》》》推送的url为:", sb);
+        logger.info("》》》》》》》》》》》》》》》》》》》》》推送的url为:\n{}", sb.toString());
         connection.connect();
         PrintWriter out = new PrintWriter(connection.getOutputStream());
         out.print(sb.toString().trim());
         out.flush();
         int code = connection.getResponseCode();
-        if (code == 200) {
-            logger.info("》》》》》》》》》》》》》》》》》》博客文章URL推送成功！");
-        } else {
-            logger.info("》》》》》》》》》》》》》》》》》》博客文章URL推送失败！");
-        }
-
+        logger.info("》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》博客文章URL推送{}！", code == 200 ? "成功" : "失败");
     }
 
     /**
-     * 新增添加文章推送功能
+     * <p>
+     * description：新增添加文章推送功能
+     * </p>
      *
      * @param articleId 文章id
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     public void pushOneBlog(String articleId) throws Exception {
-        writerUrl(initConnect(), articleId);
+        writerUrl(initConnect(), Arrays.asList(articleId));
     }
 }

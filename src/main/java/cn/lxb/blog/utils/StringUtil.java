@@ -3,15 +3,24 @@ package cn.lxb.blog.utils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.StringUtils;
 
 /**
- * TODO 字符串工具类
- * Created by Andy on 2017/3/13.
+ * <p>
+ * description：字符串工具类
+ * </p>
+ *
+ * @author 54LXB.
+ * @apiNote 知识改变命运，技术改变世界。
+ * @since 2017-11-25.
  */
-public class StringUtil {
+public class StringUtil extends StringUtils {
 
     /**
      * TODO 字符串判断是否是空
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     public static boolean isEmpty(String str) {
         return str == null || "".equals(str.trim());
@@ -19,6 +28,9 @@ public class StringUtil {
 
     /**
      * TODO 字符串判断是否不是空
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     public static boolean isNotEmpty(String str) {
         return (str != null) && !"".equals(str.trim());
@@ -26,6 +38,9 @@ public class StringUtil {
 
     /**
      * TODO list集合判断是否是空
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     public static boolean isEmptyList(List list) {
         return list == null || list.isEmpty();
@@ -33,6 +48,9 @@ public class StringUtil {
 
     /**
      * TODO list集合判断是否不是空
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     public static boolean isNotEmptyList(List list) {
         return list != null && !list.isEmpty();
@@ -41,6 +59,9 @@ public class StringUtil {
 
     /**
      * TODO map集合判断是否是空
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     public static boolean isEmptyMap(Map map) {
         return map == null || map.isEmpty();
@@ -48,6 +69,9 @@ public class StringUtil {
 
     /**
      * TODO map集合判断是否不是空
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     public static boolean isNotEmptyMap(Map map) {
         return map != null && !map.isEmpty();
@@ -55,6 +79,9 @@ public class StringUtil {
 
     /**
      * TODO 字符串格式化模糊查询
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     public static String formatLike(String str) {
         if (isNotEmpty(str)) {
@@ -66,6 +93,9 @@ public class StringUtil {
 
     /**
      * TODO 过滤掉集合里的空格
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     public static List<String> filterWhite(List<String> list) {
         List<String> resultList = new ArrayList<String>();
@@ -82,6 +112,9 @@ public class StringUtil {
      *
      * @param source 需要进行除HTML的文本
      * @return 没有HTML标签的文本
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     public static String deleteAllHTMLTag(String source) {
         // 非空校验

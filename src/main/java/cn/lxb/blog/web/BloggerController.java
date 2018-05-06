@@ -10,8 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.Resource;
 
 /**
- * 博主Controller层
- * Created by Andy on 2017/3/13.
+ * <p>
+ * Description：博主Controller层
+ * </P>
+ *
+ * @author Andy
+ * @apiNote 知识改变命运，技术改变世界！
+ * @since 2017-09-13 09:00.
  */
 @Controller
 @RequestMapping("/blogger")
@@ -21,7 +26,16 @@ public class BloggerController {
     private BloggerService bloggerService;
 
     /**
-     * 查找博主信息
+     * <p>
+     * Description：查找博主信息
+     * </P>
+     *
+     * @param model model
+     * @return 页面路劲
+     * @throws Exception
+     * @author Andy
+     * @apiNote 知识改变命运，技术改变世界！
+     * @since 2017-09-13 09:00.
      */
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String about(Model model) throws Exception {

@@ -101,7 +101,7 @@ public class BlogController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(@RequestParam(value = "keyword", required = false) String keyword,
                          @RequestParam(value = "page", required = false) String page, HttpSession session, Model model) throws Exception {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         page = StringUtil.isEmpty(page) ? "1" : page;
         result.put("mainPage", BlogConstant.BLOG_RESULT);
 
@@ -115,7 +115,7 @@ public class BlogController {
         result.put("pageCode", pageCode);
         result.put("keyword", keyword);
         result.put("resultTotal", blogList.size());
-        result.put("pageTitle", "搜索关键字'" + keyword + "'结果页面");
+        result.put("pageTitle", String.format("搜索关键字'%s'结果页面",keyword));
         model.addAllAttributes(result);
 
         return BlogConstant.COMMON_MAIN;

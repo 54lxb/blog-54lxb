@@ -7,9 +7,6 @@
 <link rel="stylesheet" href="${baseURL}/static/frame/layer-2.4/skin/layer.css">
 <link rel="stylesheet" href="${baseURL}/static/frame/editormd-1.5.0/css/editormd.css">
 <style type="text/css">
-    .blog_content p img {
-        width: 100%;
-    }
     .diggit {
         position: fixed;
         border-radius: 5px;
@@ -123,8 +120,7 @@
 
 <div class="data_list">
     <div class="data_list_title">
-        <img src="${baseURL}/static/common/images/blog_show_icon.png"/>
-        博客信息
+        <img src="${baseURL}/static/common/images/blog_show_icon.png"/>博客信息
     </div>
     <div>
         <div class="blog_title"><h3><strong>${blog.title }</strong></h3></div>
@@ -134,8 +130,8 @@
             博客类别：${blog.blogType.typeName}&nbsp;&nbsp;阅读(${blog.clickHit})
             评论(${blog.replyHit})
         </div>
-        <div class="blog_content">
-            ${blog.content }
+        <div id="wordsView">
+            <textarea style="display:none;" name="editormd-markdown-doc">${blog.content }</textarea>
         </div>
         <div class="ui secondary segment"><b>关键字：</b>
             &nbsp;&nbsp;
@@ -205,7 +201,7 @@
         <img src="${baseURL}/static/common/images/publish_comment_icon.png"/> 发表评论
     </div>
     <div class="publish_comment">
-        <div id="editormd" class="content">
+        <div id="editor-md" class="content">
             <textarea class="editormd-markdown-textarea" title="" style="display:none;"></textarea>
         </div>
         <div class="passcode">
@@ -227,11 +223,28 @@
 
 <script type="text/javascript" src="${baseURL}/static/frame/bootstrap-3.3.7/js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="${baseURL}/static/frame/layer-2.4/layer.js"></script>
-<script type="text/javascript" src="${baseURL}/static/frame/ueditor-1.4.3/third-party/SyntaxHighlighter/shCore.js"></script>
+<script src="${baseURL}/static/frame/editormd-1.5.0/lib/marked.min.js"></script>
+<script src="${baseURL}/static/frame/editormd-1.5.0/lib/prettify.min.js"></script>
+<script src="${baseURL}/static/frame/editormd-1.5.0/lib/raphael.min.js"></script>
+<script src="${baseURL}/static/frame/editormd-1.5.0/lib/underscore.min.js"></script>
+<script src="${baseURL}/static/frame/editormd-1.5.0/lib/sequence-diagram.min.js"></script>
+<script src="${baseURL}/static/frame/editormd-1.5.0/lib/flowchart.min.js"></script>
+<script src="${baseURL}/static/frame/editormd-1.5.0/lib/jquery.flowchart.min.js"></script>
 <script type="text/javascript" src="${baseURL}/static/frame/editormd-1.5.0/js/editormd.min.js"></script>
 <script type="text/javascript">
+    $(function () {
+        editormd.markdownToHTML("wordsView", {
+            htmlDecode      : "style,script,iframe",  // you can filter tags decode
+            emoji           : true,
+            taskList        : true,
+            tex             : true,  // 默认不解析
+            flowChart       : true,  // 默认不解析
+            sequenceDiagram : true  // 默认不解析
+        });
+    });
+
     var editor = editormd({
-        id:"editormd", //编辑(格式化)的ID
+        id:"editor-md", //编辑(格式化)的ID
         path : "${baseURL}/static/frame/editormd-1.5.0/lib/",
         width: "100%",
         height: 300,
@@ -286,8 +299,6 @@
     function initCommentDate(dom,date) {
         document.getElementById(dom).innerHTML(fmtDate(date));
     }
-
-    SyntaxHighlighter.all();
 
     function loadImage(image) {
         image.src = image.src + "?" + Math.random();

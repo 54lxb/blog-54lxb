@@ -1,5 +1,6 @@
 package cn.lxb.blog.web.admin;
 
+import cn.lxb.blog.constant.BlogConstant;
 import cn.lxb.blog.entity.Blogger;
 import cn.lxb.blog.service.BloggerService;
 import cn.lxb.blog.utils.DateUtil;
@@ -22,8 +23,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 
 /**
- * 管理员博主Controller层
- * Created by Andy on 2017/3/13.
+ * <p>
+ * description：管理员博主Controller层
+ * </p>
+ *
+ * @author 54LXB.
+ * @apiNote 知识改变命运，技术改变世界。
+ * @since 2017-11-25.
  */
 @Controller
 @RequestMapping("/admin/blogger")
@@ -46,7 +52,6 @@ public class BloggerAdminController {
      * @param blogger 博主信息bean
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @SuppressWarnings("unchecked")
     public String login(Blogger blogger, HttpServletRequest request) throws Exception {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(blogger.getUserName(), MD5Util.md5(blogger.getPassword()));
@@ -57,15 +62,15 @@ public class BloggerAdminController {
         } catch (IncorrectCredentialsException | UnknownAccountException e) {
             request.setAttribute("blogger", blogger);
             request.setAttribute("errorInfo", "账号或密码错误！");
-            return "common/login";
+            return BlogConstant.BLOG_LOGIN;
         } catch (LockedAccountException e) {
             request.setAttribute("blogger", blogger);
             request.setAttribute("errorInfo", "非法操作，账号已锁！");
-            return "common/login";
+            return BlogConstant.BLOG_LOGIN;
         } catch (ExcessiveAttemptsException e) {
             request.setAttribute("blogger", blogger);
             request.setAttribute("errorInfo", "登录失败多次，账户锁定1小时！");
-            return "common/login";
+            return BlogConstant.BLOG_LOGIN;
         }
     }
 
@@ -139,11 +144,7 @@ public class BloggerAdminController {
         Integer id = blogger.getId();
         int resultTotal = bloggerService.updateById(id, blogger);
         JSONObject result = new JSONObject();
-        if (resultTotal > 0) {
-            result.put("success", true);
-        } else {
-            result.put("success", false);
-        }
+        result.put("success", resultTotal > 0);
         ResponseUtil.write(response, result);
     }
 

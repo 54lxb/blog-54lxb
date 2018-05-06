@@ -7,17 +7,27 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * TODO 日期工具类
- * Created by Andy on 2017/3/13.
+ * <p>
+ * description：日期工具类
+ * </p>
+ *
+ * @author 54LXB.
+ * @apiNote 知识改变命运，技术改变世界。
+ * @since 2017-11-25.
  */
 public class DateUtil implements JsonValueProcessor {
 
     /**
-     * TODO 日期对象转字符串
+     * <p>
+     * description：日期对象转字符串
+     * </p>
      *
-     * @param date 要转换的时间
+     * @param date   要转换的时间
      * @param format 目标格式
      * @return 转换后的结果
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     public static String formatDate(Date date, String format) {
         String result = "";
@@ -29,11 +39,16 @@ public class DateUtil implements JsonValueProcessor {
     }
 
     /**
-     * TODO 字符串转日期对象
+     * <p>
+     * description：字符串转日期对象
+     * </p>
      *
-     * @param str 要转换的字符串
+     * @param str    要转换的字符串
      * @param format 目标格式
      * @return 转换后的时间
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     public static Date formatString(String str, String format) throws Exception {
         if (StringUtil.isEmpty(str)) {
@@ -44,7 +59,13 @@ public class DateUtil implements JsonValueProcessor {
     }
 
     /**
-     * TODO 按默认格式获取当前时间，并转换为字符串
+     * <p>
+     * description：按默认格式获取当前时间，并转换为字符串
+     * </p>
+     *
+     * @author 54LXB.
+     * @apiNote 知识改变命运，技术改变世界。
+     * @since 2017-11-25.
      */
     public static String getCurrentDateStr() throws Exception {
         Date date = new Date();

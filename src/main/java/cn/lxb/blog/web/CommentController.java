@@ -55,11 +55,7 @@ public class CommentController {
             //修改评论
             resultTotal = commentService.updateById(id, comment);
         }
-        if (resultTotal > 0) {
-            result.put("success", true);
-        } else {
-            result.put("success", false);
-        }
+        result.put("success", resultTotal > 0);
 
         ResponseUtil.write(response, result);
     }
@@ -97,11 +93,7 @@ public class CommentController {
                 Integer id = comment.getId();
                 resultTotal = commentService.updateById(id, comment);
             }
-            if (resultTotal > 0) {
-                result.put("success", true);
-            } else {
-                result.put("success", false);
-            }
+            result.put("success", resultTotal > 0);
         }
         ResponseUtil.write(response, result);
     }

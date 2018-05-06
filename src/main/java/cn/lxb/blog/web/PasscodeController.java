@@ -13,16 +13,26 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
- * 验证码工具类
+ * <p>
+ *     Description：验证码工具类
+ * </p>
+ * @author Andy
+ * @apiNote 知识改变命运，技术改变世界！
+ * @since 2017-09-13 09:00.
  * Created by Andy on 2017/3/13.
  */
 @Controller
 public class PasscodeController {
 
     /**
-     * 随机颜色
+     * <p>
+     *     Description：随机颜色
+     * </p>
      * @param fc 起始值
      * @param bc 结束值
+     * @author Andy
+     * @apiNote 知识改变命运，技术改变世界！
+     * @since 2017-09-13 09:00.
      */
     private static Color getRandColor(Integer fc, Integer bc) {
         Random random = new Random();
@@ -35,10 +45,16 @@ public class PasscodeController {
     }
 
     /**
-     * 获取验证码
+     *
+     * <p>
+     *     Description：获取验证码
+     * </p>
      * @param request 请求
      * @param response 响应
      * @throws Exception
+     * @author Andy
+     * @apiNote 知识改变命运，技术改变世界！
+     * @since 2017-09-13 09:00.
      */
     @RequestMapping(value = "/passcode", method = RequestMethod.GET)
     public void generatePasscode(HttpServletRequest request, HttpServletResponse response) throws Exception {

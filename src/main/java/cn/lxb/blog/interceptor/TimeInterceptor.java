@@ -9,12 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * <P>
- *  Description：请求时间计算拦截器
+ * <p>
+ * Description：请求时间计算拦截器
  * </P>
+ *
  * @author Andy
- * @since 2017-09-13 09:00.
  * @apiNote 知识改变命运，技术改变世界！
+ * @since 2017-09-13 09:00.
  */
 public class TimeInterceptor extends HandlerInterceptorAdapter {
 
@@ -37,5 +38,6 @@ public class TimeInterceptor extends HandlerInterceptorAdapter {
         }
     }
 
-    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object, Exception exception) throws Exception {}
+    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object, Exception exception) throws Exception {
+    }
 }  

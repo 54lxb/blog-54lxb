@@ -1,22 +1,32 @@
 package cn.lxb.blog.constant;
 
 /**
- * MsgBean的code码
+ * <p>
+ * description：MsgBean的code码
+ * </p>
+ *
  * @author 54LXB.
  * @apiNote 知识改变命运，技术改变世界。
  * @since 2017-11-25.
  */
-public interface MsgCode {
-    /**
-     * 成功
-     */
-    public static final int SUCCESS = 1;
-    /**
-     * 失败
-     */
-    public static final int FAIL = 0;
-    /**
-     * 未登录
-     */
-    public static final int NOT_LOGIN = -1;
+public enum MsgCode {
+
+    // 处理失败
+    FAILED(0),
+    // 处理成功
+    SUCCESS(1);
+
+    private int value;
+
+    private MsgCode(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 }

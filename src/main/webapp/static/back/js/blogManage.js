@@ -74,62 +74,6 @@ var blog = {
             }
             var row = selectedRows[0];
             window.parent.main.ToolBox.openTab('修改博客', row.id,'modifyBlog', 'icon-writeblog');
-        },
-        submitData: function (id) {
-            var title = $("#title").val();
-            var blogTypeId = $("#blogTypeId").combobox("getValue");
-            var content = UE.getEditor('editor').getContent();
-            var keyWord = $("#keyWord").val();
-
-            if (title === null || title === '') {
-                alert("请输入标题！");
-            } else if (blogTypeId === null || blogTypeId === '') {
-                alert("请选择博客类别！");
-            } else if (content === null || content === '') {
-                alert("请输入内容！");
-            } else {
-                if (id === null || id === '') {
-                    $.post(blog.URL.saveBlog(), {
-                        'title':title,
-                        'blogType.id':blogTypeId,
-                        'content':content,
-                        'contentNoTag':UE.getEditor('editor').getContentTxt(),
-                        'summary':UE.getEditor('editor').getContentTxt().substr(0,155),
-                        'keyWord':keyWord
-                    }, function(result){
-                        if(result.success){
-                            alert("博客发布成功！");
-                            blog.ToolBox.resetValue();
-                        } else{
-                            alert("博客发布失败！");
-                        }
-                    },"json");
-                } else {
-                    $.post(blog.URL.updateBlog(id), {
-                        'id': id,
-                        'title': title,
-                        'blogType.id': blogTypeId,
-                        'content': content,
-                        'contentNoTag': UE.getEditor('editor').getContentTxt(),
-                        'summary': UE.getEditor('editor').getContentTxt().substr(0, 155),
-                        'keyWord': keyWord
-                    }, function (result) {
-                        if (result.success) {
-                            alert("博客修改成功！");
-                            blog.ToolBox.resetValue();
-                        } else {
-                            alert("博客修改失败！");
-                        }
-                    }, "json");
-                }
-
-            }
-        },
-        resetValue: function () {
-            $("#title").val("");
-            $("#blogTypeId").combobox("setValue", "");
-            UE.getEditor('editor').setContent("");
-            $("#keyWord").val("");
         }
     }
 };

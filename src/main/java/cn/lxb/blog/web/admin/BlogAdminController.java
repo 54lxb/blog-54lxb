@@ -1,5 +1,9 @@
 package cn.lxb.blog.web.admin;
 
+import cn.lxb.blog.constant.MsgCode;
+import cn.lxb.blog.constant.MsgInfo;
+import cn.lxb.blog.constant.MsgLevel;
+import cn.lxb.blog.dto.MsgBean;
 import cn.lxb.blog.entity.Blog;
 import cn.lxb.blog.entity.PageBean;
 import cn.lxb.blog.service.BlogIndexService;
@@ -11,10 +15,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -49,11 +50,7 @@ public class BlogAdminController {
         blogIndexService.addIndex(blog); // 添加博客索引
 
         JSONObject result = new JSONObject();
-        if (resultTotal > 0) {
-            result.put("success", true);
-        } else {
-            result.put("success", false);
-        }
+        result.put("success", resultTotal > 0);
         ResponseUtil.write(response, result);
     }
 
@@ -64,18 +61,12 @@ public class BlogAdminController {
      */
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
     public void update(@PathVariable("id") Integer id, Blog blog, HttpServletResponse response) throws Exception {
-
-        //更新博客
+        // 更新博客
         int resultTotal = blogService.updateById(id, blog);
-        blogIndexService.updateIndex(blog); // 更新博客索引
-
+        // 更新博客索引
+        blogIndexService.updateIndex(blog);
         JSONObject result = new JSONObject();
-
-        if (resultTotal > 0) {
-            result.put("success", true);
-        } else {
-            result.put("success", false);
-        }
+        result.put("success", resultTotal > 0);
         ResponseUtil.write(response, result);
     }
 
@@ -85,10 +76,10 @@ public class BlogAdminController {
      * @param id 博客id
      */
     @RequestMapping(value = "/{id}/detail", method = RequestMethod.GET)
-    public void detail(@PathVariable("id") String id, HttpServletResponse response) throws Exception {
-        Blog blog = blogService.findById(Integer.parseInt(id));
-        JSONObject jsonObject = JSONObject.fromObject(blog);
-        ResponseUtil.write(response, jsonObject);
+    @ResponseBody
+    public MsgBean detail(@PathVariable("id") Integer id) throws Exception {
+        Blog blog = blogService.findById(id);
+        return new MsgBean(MsgCode.SUCCESS, MsgInfo.SUCCESS, MsgLevel.NORMAL).setData(blog);
     }
 
     /**

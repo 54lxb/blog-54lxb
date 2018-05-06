@@ -79,9 +79,9 @@ public class BlogInitController {
             List<String> imagesList = blog.getImagesList();
             String blogInfo = blog.getContent();
             Document doc = Jsoup.parse(blogInfo);
-            Elements jpgs = doc.select("img[src$=.jpg]"); //　查找扩展名是jpg的图片
-            for (int i = 0; i < jpgs.size(); i++) {
-                Element jpg = jpgs.get(i);
+            Elements images = doc.select("img[src$=.jpg]"); //　查找扩展名是jpg的图片
+            for (int i = 0; i < images.size(); i++) {
+                Element jpg = images.get(i);
                 imagesList.add(jpg.toString());
                 if (i == 2) {
                     break;
@@ -93,16 +93,16 @@ public class BlogInitController {
         Map<String, Object> initParam = new HashMap<String, Object>();
         initParam.put("blogList", blogList);
 
-        String param = ""; // 查询参数
+        StringBuilder paramBuilder = new StringBuilder(""); // 查询参数
         if (StringUtil.isNotEmpty(typeId)) {
-            param += "typeId=" + typeId + "&";
+            paramBuilder.append("typeId=").append(typeId).append("&");
         }
         if (StringUtil.isNotEmpty(releaseDateStr)) {
-            param += "releaseDateStr=" + releaseDateStr + "&";
+            paramBuilder.append("releaseDateStr=").append(releaseDateStr).append("&");
         }
         Long total =  blogService.getTotal(map);
         String url = session.getServletContext().getContextPath() + "/index";
-        String pageCode =  PageUtil.genPagination(url, total, Integer.parseInt(page), BlogConstant.DEFAULT_RECORDS, param);
+        String pageCode =  PageUtil.genPagination(url, total, Integer.parseInt(page), BlogConstant.DEFAULT_RECORDS, paramBuilder.toString());
 
         initParam.put("pageCode", pageCode);
         initParam.put("mainPage", BlogConstant.BLOG_LIST);

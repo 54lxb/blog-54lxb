@@ -1,38 +1,47 @@
 package cn.lxb.blog.dto;
 
+import cn.lxb.blog.constant.MsgCode;
+import cn.lxb.blog.constant.MsgInfo;
 import cn.lxb.blog.constant.MsgLevel;
 
 /**
- * 消息传输bean
- * Created by 54LXB on 2017-07-11.
+ * <p>
+ * Description：消息传输bean
+ * </P>
+ *
+ * @author Andy
+ * @apiNote 知识改变命运，技术改变世界！
+ * @since 2017-09-13 09:00.
  */
 public class MsgBean {
 
-    /** code码（在Code.java中定义） */
-    private int code = 0;
-    /** 消息 */
-    private String msg = "操作失败！";
-    /** 消息等级，枚举MsgLevel */
+    /**
+     * 处理状态码
+     *
+     * @see MsgCode
+     */
+    private int code;
+    /**
+     * 消息
+     *
+     * @see MsgInfo
+     */
+    private String msg;
+    /**
+     * 消息等级
+     *
+     * @see MsgLevel
+     */
     private int level;
-    /** 返回数据用 */
+
+    /**
+     * 返回数据用
+     */
     private Object data;
 
-    public MsgBean() {
-        super();
-    }
-
-    public MsgBean(int code, String msg, MsgLevel level) {
-        super();
-        this.code = code;
-        this.msg = msg;
-        if (level != null) {
-            this.level = level.getValue();
-        }
-    }
-
-    public void setMsgBean(int code, String msg, MsgLevel level) {
-        this.code = code;
-        this.msg = msg;
+    public MsgBean(MsgCode code, MsgInfo msg, MsgLevel level) {
+        this.code = code.getValue();
+        this.msg = msg.getValue();
         this.level = level.getValue();
     }
 

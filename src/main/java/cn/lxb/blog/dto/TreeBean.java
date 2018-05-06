@@ -14,7 +14,7 @@ public class TreeBean {
     private String name;
     private String image;
     private boolean isParent;
-    private List<TreeBean> children = new ArrayList<TreeBean>();
+    private List<TreeBean> children = new ArrayList<>();
 
     public Integer getId() {
         return id;

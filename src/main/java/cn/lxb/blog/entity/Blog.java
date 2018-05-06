@@ -6,8 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Blog表对应实体类
- * Created by Andy on 2017/3/12.
+ * <p>
+ * Description：Blog表对应实体类
+ * </P>
+ *
+ * @author Andy
+ * @apiNote 知识改变命运，技术改变世界！
+ * @since 2017-09-13 09:00.
  */
 public class Blog implements Serializable {
 

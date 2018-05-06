@@ -10,7 +10,7 @@ public enum MsgLevel {
     // 警告消息，业务继续
     WARNING(2),
     // 错误消息，业务失败
-    ERROR(3), ;
+    ERROR(3);
 
     private int value;
 

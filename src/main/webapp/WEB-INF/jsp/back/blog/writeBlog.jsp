@@ -31,7 +31,7 @@
         <tr>
             <td valign="top">博客内容：</td>
             <td>
-                <div id="editormd" class="content">
+                <div id="editor-md" class="content">
                     <textarea class="editormd-markdown-textarea" title="" style="display:none;"></textarea>
                 </div>
             </td>
@@ -43,9 +43,7 @@
         <tr>
             <td></td>
             <td>
-                <a href="javascript:blog.ToolBox.submitData(null)" class="easyui-linkbutton"
-                   data-options="iconCls:'icon-submit'">发布博客
-                </a>
+                <a href="javascript:saveBlog(null)" class="easyui-linkbutton" data-options="iconCls:'icon-submit'">发布博客</a>
             </td>
         </tr>
     </table>
@@ -54,12 +52,14 @@
 <script type="text/javascript" src="${baseURL}/static/frame/editormd-1.5.0/js/editormd.min.js"></script>
 <script type="text/javascript" src="${baseURL}/static/frame/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${baseURL}/static/frame/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="${baseURL}/static/frame/layer-2.4/layer.js"></script>
 <script type="text/javascript" src="${baseURL}/static/back/js/blogManage.js"></script>
 <script type="text/javascript">
+    var editor;
     //实例化编辑器
     $(function() {
-        var editor = editormd({
-            id:"editormd", //编辑(格式化)的ID
+        editor = editormd({
+            id:"editor-md", //编辑(格式化)的ID
             path : "${baseURL}/static/frame/editormd-1.5.0/lib/",
             width: "100%",
             height: $(window).height(),
@@ -70,7 +70,11 @@
             },
             placeholder: "骚年哟，既然都来了，为何不吐槽几句呢 (σﾟ∀ﾟ)σ ...",
             saveHTMLToTextarea: true, //开启保存HTML到 Textarea
-            dialogLockScreen : false,
+            dialogLockScreen : false,//设置弹出层对话框不锁屏，全局通用，默认为true
+            dialogShowMask : false,//设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+            dialogDraggable : false,//设置弹出层对话框不可拖动，全局通用，默认为true
+            dialogMaskOpacity : 0.1, //设置透明遮罩层的透明度，全局通用，默认值为0.1
+            dialogMaskBgColor : "#fff",//设置透明遮罩层的背景颜色，全局通用，默认为#fff
             lineNumbers: false,
             codeFold : true,
             autoFocus: false,
@@ -80,12 +84,73 @@
             sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
             imageUpload : true,
             imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL : "/admin/article/imageUpload",
-            onload : function() {
-
-            }
+            imageUploadURL : "/admin/upload/imageUpload"
         });
     });
+
+
+    function saveBlog(id) {
+
+        var title = $("#title").val();
+        var blogTypeId = $("#blogTypeId").combobox("getValue");
+        var content = editor.getMarkdown();
+        var contentNoTag = editor.getMarkdown();
+        var summary = editor.getHTML().substring(0,200);
+        var keyWord = $("#keyWord").val();
+
+        if (title === null || title === '') {
+            layer.alert("请输入标题！");
+            return false;
+        } else if (blogTypeId === null || blogTypeId === '') {
+            layer.alert("请选择博客类别！");
+        } else if (content === null || content === '') {
+            layer.alert("请输入内容！");
+            return false;
+        } else {
+            if (id === null || id === '') {
+                $.post(blog.URL.saveBlog(), {
+                    'title':title,
+                    'blogType.id':blogTypeId,
+                    'content':content,
+                    'contentNoTag':contentNoTag,
+                    'summary':summary,
+                    'keyWord':keyWord
+                }, function(result){
+                    if(result.success){
+                        layer.msg("博客发布成功！");
+                        resetValue();
+                    } else{
+                        layer.alert("博客发布失败！");
+                    }
+                },"json");
+            } else {
+                $.post(blog.URL.updateBlog(id), {
+                    'id': id,
+                    'title': title,
+                    'blogType.id': blogTypeId,
+                    'content': content,
+                    'contentNoTag':contentNoTag,
+                    'summary':summary,
+                    'keyWord': keyWord
+                }, function (result) {
+                    if (result.success) {
+                        layer.msg("博客修改成功！");
+                        resetValue();
+                    } else {
+                        layer.alert("博客修改失败！");
+                    }
+                }, "json");
+            }
+
+        }
+    }
+
+    function resetValue() {
+        $("#title").val("");
+        $("#blogTypeId").combobox("setValue", "");
+        editor.setMarkdown("");
+        $("#keyWord").val("");
+    }
 
 </script>
 </body>
