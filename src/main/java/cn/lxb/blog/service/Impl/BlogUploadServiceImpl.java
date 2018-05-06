@@ -12,9 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -67,7 +64,6 @@ public class BlogUploadServiceImpl implements BlogUploadService {
         // 获取图片保存物理路径
         String real_path = session.getServletContext().getRealPath(save_path);
         // 设置新文件名
-
         String tempName = new SimpleDateFormat("yyyyMMddHHmmss").format(nowDate);
         String newFilename = String.format("%s%s", tempName, oldFileName.substring(oldFileName.lastIndexOf(".")));
 
