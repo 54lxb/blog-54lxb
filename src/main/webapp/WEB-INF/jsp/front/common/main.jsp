@@ -66,7 +66,7 @@
                         博主信息
                     </div>
                     <div class="user_image">
-                        <img src="${baseURL}/static/front/blogger/image/${blogger.imageName}"/>
+                        <img src="${baseURL}/static/front/blogger/image/${blogger.imageName}" class="img-responsive"/>
                     </div>
                     <div class="nickName">${blogger.nickName }</div>
                     <div class="userSign">(${blogger.sign })</div>
@@ -134,6 +134,7 @@
 <script src="${baseURL}/static/frame/bootstrap-3.3.7/js/jquery-1.11.2.min.js"></script>
 <script src="${baseURL}/static/frame/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 <script src="${baseURL}/static/frame/layer-2.4/layer.js"></script>
+<script src="${baseURL}/static/common/js/love.js"></script>
 <script type="text/javascript">
     $(function() {
         $('body').addClass('loaded');
